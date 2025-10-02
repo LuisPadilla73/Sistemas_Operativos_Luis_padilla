@@ -9,41 +9,25 @@
  * @file    PRACTICA2.c
  * @brief   Application entry point.
  */
-#include <stdio.h>
-#include "board.h"
-#include "peripherals.h"
-#include "pin_mux.h"
-#include "clock_config.h"
-#include "MK64F12.h"
-#include "fsl_debug_console.h"
-/* TODO: insert other include files here. */
+#include "scheduler.h"
+#include "scheduler_types.h"
+#include "context_switch.h"
 
-/* TODO: insert other definitions and declarations here. */
+// Simulación de funciones vacías para evitar errores de linker
+void thread_a(void) {}
+void thread_b(void) {}
+void thread_c(void) {}
 
-/*
- * @brief   Application entry point.
- */
+// Simulación de inicialización mínima
+extern thread_t thread_table[NUM_THREADS];
+
 int main(void) {
+    // Inicialización mínima para probar integración
+    scheduler_init();
+    scheduler_start();
 
-    /* Init board hardware. */
-    BOARD_InitBootPins();
-    BOARD_InitBootClocks();
-    BOARD_InitBootPeripherals();
-#ifndef BOARD_INIT_DEBUG_CONSOLE_PERIPHERAL
-    /* Init FSL debug console. */
-    BOARD_InitDebugConsole();
-#endif
-
-    PRINTF("Hello World\r\n");
-
-    /* Force the counter to be placed into memory. */
-    volatile static int i = 0 ;
-    /* Enter an infinite loop, just incrementing a counter. */
-    while(1) {
-        i++ ;
-        /* 'Dummy' NOP to allow source level single stepping of
-            tight while() loop */
-        __asm volatile ("nop");
+    // Bucle vacío, no se ejecuta multitarea real
+    while (1) {
+        // Espera pasiva
     }
-    return 0 ;
 }
