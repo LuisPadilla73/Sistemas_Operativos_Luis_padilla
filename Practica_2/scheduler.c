@@ -15,7 +15,7 @@ static uint8_t current_thread = 0;
 static uint32_t tick_counter = 0;
 
 void scheduler_init(void) {
-    // Aquí podrías inicializar los threads si te corresponde
+    // Se inicializan los threads (no los tengo todavía)
     // Por ahora solo reiniciamos el índice y contador
     current_thread = 0;
     tick_counter = 0;
