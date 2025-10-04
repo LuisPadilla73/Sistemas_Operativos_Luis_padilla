@@ -10,6 +10,15 @@
 
 #include <stdint.h>
 #include "scheduler_types.h"
+#include "context_switch.h"
+#include "scheduler_types.h"
+#include "fsl_device_registers.h" // Para SCB->ICSR
+#include "UART_SDK.h"
+
+
+
+thread_t thread_table[NUM_THREADS];
+
 
 // Inicializa el planificador y los hilos (puede llamarse desde main)
 void scheduler_init(void);
@@ -19,6 +28,10 @@ void scheduler_start(void);
 
 // Retorna el índice del siguiente thread según Round Robin
 uint8_t scheduler_next_thread(void);
+
+void thread_a(void);
+void thread_b(void);
+void thread_c(void);
 
 // Tabla global de threads (puede usarse en otros módulos)
 extern thread_t thread_table[NUM_THREADS];

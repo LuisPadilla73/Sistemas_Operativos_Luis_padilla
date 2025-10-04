@@ -14,12 +14,6 @@
 #include "context_switch.h"
 
 // Simulación de funciones vacías para evitar errores de linker
-void thread_a(void) {}
-void thread_b(void) {}
-void thread_c(void) {}
-
-// Simulación de inicialización mínima
-extern thread_t thread_table[NUM_THREADS];
 
 int main(void) {
     // Inicialización mínima para probar integración

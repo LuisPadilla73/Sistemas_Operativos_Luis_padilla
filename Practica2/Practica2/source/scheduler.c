@@ -6,13 +6,31 @@
  */
 
 #include "scheduler.h"
-#include "context_switch.h"
-#include "scheduler_types.h"
-#include "fsl_device_registers.h" // Para SCB->ICSR
 
-thread_t thread_table[NUM_THREADS];
 static uint8_t current_thread = 0;
 static uint32_t tick_counter = 0;
+
+
+void thread_a(void){
+ while(1){
+	 uint8_t string[]="Executing Thread A\r\n";
+	 terminal_send(string,sizeof(string));
+ }
+}
+
+void thread_b(void){
+ while(1){
+	 uint8_t string[]="Executing Thread B\r\n";
+	 terminal_send(string,sizeof(string));
+ }
+}
+
+void thread_b(void){
+ while(1){
+	 uint8_t string[]="Executing Thread C\r\n";
+	 terminal_send(string,sizeof(string));
+ }
+}
 
 void scheduler_init(void) {
     // Se inicializan los threads (no los tengo todavía)
