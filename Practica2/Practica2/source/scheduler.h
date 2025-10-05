@@ -17,12 +17,9 @@
 
 
 
-thread_t thread_table[NUM_THREADS];
-
-
 // Inicializa el planificador y los hilos (puede llamarse desde main)
 void scheduler_init(void);
-
+void lp_rtos_trap(void);
 // Arranca el scheduler (puede invocar SVC si se usa)
 void scheduler_start(void);
 
@@ -34,6 +31,6 @@ void thread_b(void);
 void thread_c(void);
 
 // Tabla global de threads (puede usarse en otros módulos)
-extern thread_t thread_table[NUM_THREADS];
+extern lp_rtos_task_t thread_table[NUM_THREADS];
 
 #endif // SCHEDULER_DRIVER_H
