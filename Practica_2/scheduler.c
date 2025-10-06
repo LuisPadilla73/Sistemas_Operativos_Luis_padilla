@@ -22,12 +22,19 @@ void scheduler_init(void) {
 }
 
 void scheduler_start(void) {
-    // Configurar prioridad más baja para PendSV
     NVIC_SetPriority(PendSV_IRQn, 0xFF);
-    // Configurar SysTick para 1ms
     SysTick_Config(SystemCoreClock / 1000);
-}
 
+    // Cargar el PSP del primer thread
+    __set_PSP((uint32_t)thread_table[current_thread].psp);
+
+    // Indicar al core que debe usar PSP en vez de MSP
+    __set_CONTROL(__get_CONTROL() | 0x2);
+    __ISB();  // Barrera de instrucciones
+
+    // Forzar un cambio de contexto inmediato
+    SCB->ICSR |= SCB_ICSR_PENDSVSET_Msk;
+}
 uint8_t scheduler_next_thread(void) {
     return (current_thread + 1) % NUM_THREADS;
 }

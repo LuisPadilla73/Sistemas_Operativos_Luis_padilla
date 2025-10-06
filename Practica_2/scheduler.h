@@ -9,18 +9,11 @@
 #define SCHEDULER_H
 
 #include <stdint.h>
-#include "scheduler_types.h"
 
-// Inicializa el planificador y los hilos (puede llamarse desde main)
+// Inicializa SysTick y PendSV
 void scheduler_init(void);
 
-// Arranca el scheduler (puede invocar SVC si se usa)
+// Inicia el scheduler y salta al primer thread
 void scheduler_start(void);
 
-// Retorna el índice del siguiente thread según Round Robin
-uint8_t scheduler_next_thread(void);
-
-// Tabla global de threads (puede usarse en otros módulos)
-extern thread_t thread_table[NUM_THREADS];
-
-#endif // SCHEDULER_DRIVER_H
+#endif /* SCHEDULER_DRIVER_H_ */
