@@ -9,25 +9,36 @@
  * @file    PRACTICA2.c
  * @brief   Application entry point.
  */
+#include "board.h"
+#include "clock_config.h"
+#include "pin_mux.h"
 #include "scheduler.h"
 #include "scheduler_types.h"
-#include "context_switch.h"
+#include "thread_init.h"
+#include "threads.h"
+#include "UART_SDK.h"
 
-// Simulación de funciones vacías para evitar errores de linker
-void thread_a(void) {}
-void thread_b(void) {}
-void thread_c(void) {}
-
-// Simulación de inicialización mínima
+// Tabla global de threads
 extern thread_t thread_table[NUM_THREADS];
 
 int main(void) {
-    // Inicialización mínima para probar integración
+    // Inicialización básica del sistema
+    BOARD_InitBootPins();
+    BOARD_InitBootClocks();
+    BOARD_InitDebugConsole();
+
+    // Inicializar UART (opcional si usas terminal_send)
+    UART_init(NULL, NULL, NULL);
+
+    // Inicializar stacks de los threads
+    init_thread_stack(&thread_table[0], thread_a);
+    init_thread_stack(&thread_table[1], thread_b);
+    init_thread_stack(&thread_table[2], thread_c);
+
+    // Inicializar y arrancar el planificador
     scheduler_init();
     scheduler_start();
 
-    // Bucle vacío, no se ejecuta multitarea real
-    while (1) {
-        // Espera pasiva
-    }
+    // Nunca se regresa aquí, los threads toman control
+    while (1) {}
 }
