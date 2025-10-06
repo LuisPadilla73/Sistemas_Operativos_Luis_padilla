@@ -11,7 +11,7 @@
 #include <stdint.h>
 
 #define NUM_THREADS         3
-#define STACK_SIZE_WORDS    128
+#define STACK_SIZE_WORDS    512
 #define TASKS_STACK_SIZE    (STACK_SIZE_WORDS)
 #define THREAD_SWITCH_MS    5
 #define INITIAL_PSR         0x01000000

@@ -35,7 +35,7 @@ enum {
 #define DEMO_UART_IRQn       UART0_RX_TX_IRQn
 #define DEMO_UART_IRQHandler UART0_RX_TX_IRQHandler
 
-void UART_init(uint32_t*  value_to_main, uint8_t* stateVariable, uint8_t* printFlag);
+void UART_init();
 void UART_show_option(uint8_t option);
 
 void terminal_send(volatile uint8_t *string, uint8_t size);

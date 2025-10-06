@@ -20,6 +20,7 @@
 // Inicializa el planificador y los hilos (puede llamarse desde main)
 void scheduler_init(void);
 void lp_rtos_trap(void);
+static void wr_main_stack_ptr(uint32_t val);
 // Arranca el scheduler (puede invocar SVC si se usa)
 void scheduler_start(void);
 

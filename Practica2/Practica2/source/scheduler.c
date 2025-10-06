@@ -9,6 +9,7 @@
 
 static uint8_t current_thread = 0;
 static uint32_t tick_counter = 0;
+static uint8_t started = 0;
 
 
 void thread_a(void){
@@ -33,8 +34,10 @@ void thread_c(void){
 }
 
 void scheduler_init(void) {
-    // Se inicializan los threads (no los tengo todavía)
-    // Por ahora solo reiniciamos el índice y contador
+	wr_main_stack_ptr(0xFFFFFFFD);
+	UART_init();
+	uint8_t initmsg[] = "initializing";
+	terminal_send(initmsg,sizeof(initmsg));
     current_thread = 0;
     tick_counter = 0;
 }
@@ -43,15 +46,21 @@ uint8_t taskB[] = "TASK B";
 uint8_t taskC[] = "TASK C";
 
 lp_rtos_task_t lp_rtos_tasks_database[] = {
-    { "TASK A", NULL, thread_a, STANDBY, { {0} }, NULL },
-    { "TASK B", NULL, thread_b, STANDBY, { {0} }, NULL },
-    { "TASK C", NULL, thread_c, STANDBY, { {0} }, NULL },
+    { "TASK A", NULL, thread_a, READY, { {0} }, NULL },
+    { "TASK B", NULL, thread_b, READY, { {0} }, NULL },
+    { "TASK C", NULL, thread_c, READY, { {0} }, NULL },
 };
 void lp_rtos_trap(void) {
     while (1) {
     	__asm volatile ("NOP");
     }
 }
+
+static void wr_main_stack_ptr(uint32_t val)
+{
+	__asm__ ("MSR msp, %0\n\t" : : "r" (val) );
+}
+
 
 
 void init_task_stack(uint32_t task_id)
@@ -69,8 +78,8 @@ void init_task_stack(uint32_t task_id)
 	// Initialize the stack frame with zeros
 	memset(stack_frame_ptr, 0, sizeof(stack_frame_t));
 
-	//task_db[task_id].StackFrameView =
-	//(stack_frame_t*)stack_frame_ptr;
+	task_db[task_id].StackFrameView =
+	(stack_frame_t*)stack_frame_ptr;
 	stack_frame_ptr->lr = (uint32_t)lp_rtos_trap;
 	stack_frame_ptr->r0 = (uint32_t)task_id;
 	stack_frame_ptr->pc = (uint32_t)task_db[task_id].task_function;
@@ -79,6 +88,7 @@ void init_task_stack(uint32_t task_id)
 
 void scheduler_start(void) {
     // Configurar prioridad más baja para PendSV
+
 	init_task_stack(0);
 	init_task_stack(1);
 	init_task_stack(2);
@@ -102,13 +112,17 @@ void SysTick_Handler(void) {
 
 void PendSV_Handler(void) {
     // Guardar contexto del thread actual
+	if (!started) {
+	        started = 1;
+	    } else {
+	        lp_rtos_tasks_database[current_thread].psp = cmcm_push_context();
 
-	lp_rtos_tasks_database[current_thread].psp = cmcm_push_context();
+	    }
+	current_thread = scheduler_next_thread();
+	// Cargar contexto del siguiente thread
+	// Al salir, el hardware restaura el resto del contexto automáticamente
+	cmcm_pop_context(lp_rtos_tasks_database[current_thread].psp);
 
-    // Seleccionar siguiente thread
-    current_thread = scheduler_next_thread();
 
-    // Cargar contexto del siguiente thread
-    // Al salir, el hardware restaura el resto del contexto automáticamente
-    cmcm_pop_context(lp_rtos_tasks_database[current_thread].psp);
+
     }

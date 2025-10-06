@@ -35,7 +35,7 @@ void terminal_send(volatile uint8_t *string, uint8_t size) {
 /*!
  * @brief Main function
  */
-void UART_init(uint32_t*  value_to_main, uint8_t* stateVariable, uint8_t* printFlag){
+void UART_init(){
 	uart_config_t config;
 	    BOARD_InitBootPins();
 	    BOARD_InitBootClocks();
