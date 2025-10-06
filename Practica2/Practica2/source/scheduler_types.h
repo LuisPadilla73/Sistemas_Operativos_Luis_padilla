@@ -35,11 +35,11 @@ typedef enum{
 
 typedef struct {
     const char*                name;
-    void*                      stack_pointer;
+    void*                      psp;
     lp_task_entry_t            task_function;
     uint8_t                    ThreadState;
     uint8_t                    stack[TASKS_STACK_SIZE];
-    stack_frame_t					StackFrameView;
+    stack_frame_t				*StackFrameView;
 } lp_rtos_task_t;
 
 // Base de datos

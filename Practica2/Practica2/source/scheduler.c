@@ -38,13 +38,15 @@ void scheduler_init(void) {
     current_thread = 0;
     tick_counter = 0;
 }
+uint8_t taskA[] = "TASK A";
+uint8_t taskB[] = "TASK B";
+uint8_t taskC[] = "TASK C";
 
 lp_rtos_task_t lp_rtos_tasks_database[] = {
-    { "TASK A", NULL, thread_a, NULL, STANDBY, {0}, {0} },
-    { "TASK B", NULL, thread_b, NULL, STANDBY, {0}, {0} },
-    { "TASK C", NULL, thread_c, NULL, STANDBY, {0}, {0} },
+    { "TASK A", NULL, thread_a, STANDBY, { {0} }, NULL },
+    { "TASK B", NULL, thread_b, STANDBY, { {0} }, NULL },
+    { "TASK C", NULL, thread_c, STANDBY, { {0} }, NULL },
 };
-
 void lp_rtos_trap(void) {
     while (1) {
     	__asm volatile ("NOP");
@@ -63,7 +65,7 @@ void init_task_stack(uint32_t task_id)
 	// Calculate the task's stack frame pointer
 	stack_frame_ptr = (stack_frame_t*)(stack_base_ptr -
 	sizeof(stack_frame_t));
-	task_db[task_id].stack_pointer = (uint8_t*)stack_frame_ptr;
+	task_db[task_id].psp = (uint8_t*)stack_frame_ptr;
 	// Initialize the stack frame with zeros
 	memset(stack_frame_ptr, 0, sizeof(stack_frame_t));
 
@@ -100,12 +102,13 @@ void SysTick_Handler(void) {
 
 void PendSV_Handler(void) {
     // Guardar contexto del thread actual
-	//lp_rtos_task_t[current_thread].psp = cmcm_push_context();
+
+	lp_rtos_tasks_database[current_thread].psp = cmcm_push_context();
 
     // Seleccionar siguiente thread
     current_thread = scheduler_next_thread();
 
     // Cargar contexto del siguiente thread
     // Al salir, el hardware restaura el resto del contexto automáticamente
-    //cmcm_pop_context(lp_rtos_task_t[current_thread].psp);
+    cmcm_pop_context(lp_rtos_tasks_database[current_thread].psp);
     }
