@@ -80,6 +80,7 @@ void init_task_stack(uint32_t task_id)
 
 	task_db[task_id].StackFrameView =
 	(stack_frame_t*)stack_frame_ptr;
+
 	stack_frame_ptr->lr = (uint32_t)lp_rtos_trap;
 	stack_frame_ptr->r0 = (uint32_t)task_id;
 	stack_frame_ptr->pc = (uint32_t)task_db[task_id].task_function;
