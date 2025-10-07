@@ -10,6 +10,7 @@
 static uint8_t current_thread = 0;
 static uint32_t tick_counter = 0;
 static uint8_t started = 0;
+volatile uint8_t scheduled_next = 0;
 
 
 void thread_a(void){
@@ -41,14 +42,12 @@ void scheduler_init(void) {
     current_thread = 0;
     tick_counter = 0;
 }
-uint8_t taskA[] = "TASK A";
-uint8_t taskB[] = "TASK B";
-uint8_t taskC[] = "TASK C";
+
 
 lp_rtos_task_t lp_rtos_tasks_database[] = {
-    { "TASK A", NULL, thread_a, READY, { {0} }, NULL },
-    { "TASK B", NULL, thread_b, READY, { {0} }, NULL },
-    { "TASK C", NULL, thread_c, READY, { {0} }, NULL },
+    { "TASK A", NULL, thread_a, STANDBY, { {0} }, NULL,5,1 },
+    { "TASK B", NULL, thread_b, STANDBY, { {0} }, NULL, 5,1 },
+    { "TASK C", NULL, thread_c, STANDBY, { {0} }, NULL ,5,1},
 };
 void lp_rtos_trap(void) {
     while (1) {
@@ -111,25 +110,39 @@ uint8_t scheduler_next_thread(void) {
 
 void SysTick_Handler(void) {
     tick_counter++;
+
+
     if (tick_counter >= THREAD_SWITCH_MS) {
         tick_counter = 0;
+        lp_rtos_tasks_database[current_thread].ThreadState = READY;
+
+        scheduled_next = scheduler_next_thread();
+
+
         SCB->ICSR |= SCB_ICSR_PENDSVSET_Msk; // Solicita cambio de contexto
+
     }
 }
 
 void PendSV_Handler(void) {
-    // Guardar contexto del thread actual
+
 	if (!started) {
 	        started = 1;
+	        lp_rtos_tasks_database[current_thread].ThreadState = EXECUTE;
+	        cmcm_pop_context(lp_rtos_tasks_database[current_thread].psp);
 	    } else {
-	        lp_rtos_tasks_database[current_thread].psp = cmcm_push_context();
+	    	if( lp_rtos_tasks_database[current_thread].ThreadState == EXECUTE){
+	    		 lp_rtos_tasks_database[current_thread].psp = cmcm_push_context();
+				 lp_rtos_tasks_database[current_thread].ThreadState = READY;
+				 current_thread = scheduled_next;
+	    	}
+
+	    	//load context, execute
+	        lp_rtos_tasks_database[current_thread].ThreadState = EXECUTE;
+	       	cmcm_pop_context(lp_rtos_tasks_database[current_thread].psp);
+
 
 	    }
-	current_thread = scheduler_next_thread();
-	// Cargar contexto del siguiente thread
-	// Al salir, el hardware restaura el resto del contexto automáticamente
-	cmcm_pop_context(lp_rtos_tasks_database[current_thread].psp);
-
 
 
     }

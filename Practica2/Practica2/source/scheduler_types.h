@@ -40,6 +40,8 @@ typedef struct {
     uint8_t                    ThreadState;
     uint8_t                    stack[TASKS_STACK_SIZE];
     stack_frame_t				*StackFrameView;
+    uint8_t						period;
+    uint8_t						priority;
 } lp_rtos_task_t;
 
 // Base de datos
