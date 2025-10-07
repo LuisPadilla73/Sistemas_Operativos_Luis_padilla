@@ -97,9 +97,6 @@ void scheduler_start(void) {
     // Configurar SysTick para 1ms
     SysTick_Config(SystemCoreClock / 1000);
 
-
-
-
     // Primer cambio de contexto
     SCB->ICSR |= SCB_ICSR_PENDSVSET_Msk;
 }
@@ -114,10 +111,9 @@ void SysTick_Handler(void) {
 
     if (tick_counter >= THREAD_SWITCH_MS) {
         tick_counter = 0;
-        lp_rtos_tasks_database[current_thread].ThreadState = READY;
+        lp_rtos_tasks_database[current_thread].ThreadState = READY; //is ready
 
         scheduled_next = scheduler_next_thread();
-
 
         SCB->ICSR |= SCB_ICSR_PENDSVSET_Msk; // Solicita cambio de contexto
 
@@ -128,17 +124,17 @@ void PendSV_Handler(void) {
 
     if (!started) {
         started = 1;
-        current_thread = scheduled_next;  // usar lo que decidió SysTick
+        current_thread = scheduled_next;
         lp_rtos_tasks_database[current_thread].ThreadState = EXECUTE;
         cmcm_pop_context(lp_rtos_tasks_database[current_thread].psp);
         return;
     }
 
-    // Guardar contexto del saliente
+    // Save context
     lp_rtos_tasks_database[current_thread].psp = cmcm_push_context();
-    lp_rtos_tasks_database[current_thread].ThreadState = READY;
+    lp_rtos_tasks_database[current_thread].ThreadState = READY;//again is ready
 
-    // Cargar el que eligió SysTick
+    // load context
     current_thread = scheduled_next;
     lp_rtos_tasks_database[current_thread].ThreadState = EXECUTE;
     cmcm_pop_context(lp_rtos_tasks_database[current_thread].psp);
