@@ -96,6 +96,12 @@ void scheduler_start(void) {
     NVIC_SetPriority(PendSV_IRQn, 0xFF);
     // Configurar SysTick para 1ms
     SysTick_Config(SystemCoreClock / 1000);
+
+
+
+
+    // Primer cambio de contexto
+    SCB->ICSR |= SCB_ICSR_PENDSVSET_Msk;
 }
 
 uint8_t scheduler_next_thread(void) {

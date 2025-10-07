@@ -16,6 +16,7 @@
 // Simulación de funciones vacías para evitar errores de linker
 
 int main(void) {
+
     // Inicialización mínima para probar integración
     scheduler_init();
     scheduler_start();
