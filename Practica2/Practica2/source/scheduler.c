@@ -126,23 +126,22 @@ void SysTick_Handler(void) {
 
 void PendSV_Handler(void) {
 
-	if (!started) {
-	        started = 1;
-	        lp_rtos_tasks_database[current_thread].ThreadState = EXECUTE;
-	        cmcm_pop_context(lp_rtos_tasks_database[current_thread].psp);
-	    } else {
-	    	if( lp_rtos_tasks_database[current_thread].ThreadState == EXECUTE){
-	    		 lp_rtos_tasks_database[current_thread].psp = cmcm_push_context();
-				 lp_rtos_tasks_database[current_thread].ThreadState = READY;
-				 current_thread = scheduled_next;
-	    	}
+    if (!started) {
+        started = 1;
+        current_thread = scheduled_next;  // usar lo que decidió SysTick
+        lp_rtos_tasks_database[current_thread].ThreadState = EXECUTE;
+        cmcm_pop_context(lp_rtos_tasks_database[current_thread].psp);
+        return;
+    }
 
-	    	//load context, execute
-	        lp_rtos_tasks_database[current_thread].ThreadState = EXECUTE;
-	       	cmcm_pop_context(lp_rtos_tasks_database[current_thread].psp);
+    // Guardar contexto del saliente
+    lp_rtos_tasks_database[current_thread].psp = cmcm_push_context();
+    lp_rtos_tasks_database[current_thread].ThreadState = READY;
 
-
-	    }
+    // Cargar el que eligió SysTick
+    current_thread = scheduled_next;
+    lp_rtos_tasks_database[current_thread].ThreadState = EXECUTE;
+    cmcm_pop_context(lp_rtos_tasks_database[current_thread].psp);
 
 
     }
