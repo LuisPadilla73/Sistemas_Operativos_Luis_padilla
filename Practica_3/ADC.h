@@ -53,4 +53,3 @@ QueueHandle_t ADC_GetQueueHandle(void);
 void ADC_IrqHandler(void);
 
 #endif /* ADC_H_ */
-
