@@ -30,12 +30,19 @@
 /* === Driver ADC integrado === */
 #include "ADC.h"
 #include "GPIO_D.h"
+#include "event_groups.h"
+
+
 /* =================== Definiciones =================== */
 #define hello_task_PRIORITY    (configMAX_PRIORITIES - 1)
 #define ADC_PRIORITY      (configMAX_PRIORITIES - 2)
 #define GrapNumb_PRIORITY      (configMAX_PRIORITIES - 3)
 #define X_INCREMENT_DEFAULT    1
 #define INIT_DISPLAY both
+#define EV_FAULT_PRESENT      (1U<<0)  // 1 = fuera de rango actual
+#define EV_FAULT5S_EXPIRED    (1U<<1)  // disparo de T_fault_5s
+#define EV_CLEAR2S_EXPIRED    (1U<<2)  // disparo de T_clear_2s
+#define EV_ALARM_ACTIVE       (1U<<3)  // 1 = alarma ON (estado latched)
 
 /* ----- Tipos propios (como en tu P3.txt) ----- */
 typedef struct{
@@ -50,6 +57,9 @@ enum {
 };
 /* =================== Recursos FreeRTOS =================== */
 static TimerHandle_t SendFBTimer;
+TimerHandle_t T_fault_5s;   // 1-shot
+TimerHandle_t T_clear_2s;   // 1-shot
+EventGroupHandle_t evg;
 
 static QueueHandle_t TimeScaleMailbox;
 static QueueHandle_t CurrentIDmailbox;
@@ -160,6 +170,17 @@ static void SendFBCallback(TimerHandle_t ARHandle)
     LCD_nokia_sent_FrameBuffer();
 }
 
+static void fault5s_cb(TimerHandle_t x) {
+    // ALARMA
+	redToggle();
+    xEventGroupSetBits(evg, EV_FAULT5S_EXPIRED);
+}
+static void clear2s_cb(TimerHandle_t x) {
+    // DESATIVAR
+	allOFF();
+    xEventGroupSetBits(evg, EV_CLEAR2S_EXPIRED);
+}
+
 /* =================== Helpers de impresión =================== */
 /* HR: centésimas de mV -> "A.BC mv" (ej.: 152 => "1.52 mv") */
 static void LCD_PrintCentimV(uint8_t x, uint8_t y, uint16_t centimV)
@@ -209,6 +230,7 @@ int main(void)
 
 
 
+
 	uint8_t init_time_scale = X_INCREMENT_DEFAULT;
     uint8_t init_display = INIT_DISPLAY;
 
@@ -239,6 +261,15 @@ int main(void)
         pdTRUE,
         0,
         SendFBCallback);
+    evg = xEventGroupCreate();
+
+    T_fault_5s = xTimerCreate("fault5s",
+                              pdMS_TO_TICKS(5000),
+                              pdFALSE, 0, fault5s_cb);
+
+    T_clear_2s = xTimerCreate("clear2s",
+                              pdMS_TO_TICKS(2000),
+                              pdFALSE, 0, clear2s_cb);
 
     /* ======= Driver ADC: su cola interna + timer 100ms ======= */
     ADC_Init(10);
@@ -415,17 +446,57 @@ static void NumberProcess_thread(void *pvParameters)
 
     adcConv_str adcConvVal;
     uint16_t outValue;
+    uint8_t fault_now;
 
     for (;;)
     {
         if (xQueueReceive(AdcConversionQueue, &adcConvVal, portMAX_DELAY) == pdTRUE)
         {
+        	fault_now = 0;
         	if (adcConvVal.convSource == 0) {
         	    outValue = (uint16_t)((adcConvVal.data * 300U) / 4095U);
         	    xQueueOverwrite(NumberQueueHR, &outValue);
+        	    if(outValue >= 285 || outValue <= 15){
+        	    	fault_now = 1;
+				}
+
         	} else {
         	    outValue = (uint16_t)(340U + ((adcConvVal.data * 60U) / 4095U));
+
         	    xQueueOverwrite(NumberQueueTEMP, &outValue);
+        	    if(outValue >= 370 || outValue <= 340){
+        	    	fault_now = 1;
+        	            	    }
+
+        	}
+
+
+        	if (fault_now) {
+
+        	    xEventGroupSetBits(evg, EV_FAULT_PRESENT);
+
+
+        	    if (xTimerIsTimerActive(T_clear_2s) != pdFALSE) {
+        	        (void)xTimerStop(T_clear_2s, pdMS_TO_TICKS(10));
+        	    }
+
+
+        	    if (xTimerIsTimerActive(T_fault_5s) == pdFALSE) {
+        	        (void)xTimerStart(T_fault_5s, pdMS_TO_TICKS(10));
+        	    }
+
+        	} else if (!fault_now){
+
+        	    xEventGroupClearBits(evg, EV_FAULT_PRESENT);
+
+
+        	    if (xTimerIsTimerActive(T_fault_5s) != pdFALSE) {
+        	        (void)xTimerStop(T_fault_5s, pdMS_TO_TICKS(10));
+        	    }
+
+        	    if (xTimerIsTimerActive(T_clear_2s) == pdFALSE) {
+        	        (void)xTimerStart(T_clear_2s, pdMS_TO_TICKS(10));
+        	    }
         	}
             taskYIELD();
         }
