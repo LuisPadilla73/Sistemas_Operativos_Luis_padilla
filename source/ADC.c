@@ -129,6 +129,8 @@ void ADC0_IRQHandler(void)
     msg.data       = (uint16_t)val;
 
     (void)xQueueSendFromISR(s_adc.hQueue, &msg, &xHPW);
+    xHPW = pdFALSE;
+    (void)xQueueSendFromISR(s_adc.hQueue, &msg, &xHPW);
 
     portYIELD_FROM_ISR(xHPW);
     SDK_ISR_EXIT_BARRIER;
