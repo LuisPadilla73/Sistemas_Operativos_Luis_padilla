@@ -94,30 +94,7 @@ static void ScreenInit(void)
 }
 
 
-static void SWInit(void)
-{
-    /* Config de SW3 con IRQ */
-    gpio_pin_config_t sw3_config = (gpio_pin_config_t){
-        .pinDirection = kGPIO_DigitalInput,
-        .outputLogic  = 0,
-    };
 
-
-    PORT_SetPinInterruptConfig(BOARD_SW3_PORT, BOARD_SW3_GPIO_PIN, kPORT_InterruptFallingEdge);
-    NVIC_SetPriority(BOARD_SW3_IRQ, 3);
-    EnableIRQ(BOARD_SW3_IRQ);
-    NVIC_SetPriority(BOARD_SW3_IRQ, 3);
-    GPIO_PinInit(BOARD_SW3_GPIO, BOARD_SW3_GPIO_PIN, &sw3_config);
-
-    PORT_SetPinInterruptConfig(BOARD_SW2_PORT, BOARD_SW2_GPIO_PIN, kPORT_InterruptFallingEdge);
-	NVIC_SetPriority(BOARD_SW2_IRQ, 3);
-	EnableIRQ(BOARD_SW2_IRQ);
-	NVIC_SetPriority(BOARD_SW2_IRQ, 3);
-	GPIO_PinInit(BOARD_SW2_GPIO, BOARD_SW2_GPIO_PIN, &sw3_config);
-
-
-
-}
 
 void BOARD_SW3_IRQ_HANDLER(void) {
     /* Clear the interrupt flag for PTA4 using SDK function */
@@ -337,12 +314,15 @@ static void LCDprint_thread(void *pvParameters)
 
         /* 2) Observa el modo (sin consumir) y detecta cambio */
         (void)xQueuePeek(CurrentIDmailbox, &mode, pdMS_TO_TICKS(15));
+
         if (mode != last_mode)
         {
             LCD_nokia_clear();
+            LCD_nokia_clear_range_FrameBuffer(0, 0, 252);
+            LCD_nokia_clear_range_FrameBuffer(0,3,252);
             a_hr = (point_str){0,0}; b_hr = (point_str){0,0};
             a_tp = (point_str){0,0}; b_tp = (point_str){0,0};
-            last_mode = mode;
+
         }
 
         /* 3) Impresión de números */
@@ -354,9 +334,17 @@ static void LCDprint_thread(void *pvParameters)
             if (xQueueReceive(PointQueueHR, &y_hr, pdMS_TO_TICKS(15)) == pdTRUE)
             {
                 a_hr = b_hr;
+                if (mode != both) {
+                	y_hr = y_hr - 24U;
+				}
                 b_hr.y = y_hr;
                 if ((uint8_t)(b_hr.x + x_increment) < 84) { b_hr.x += x_increment; }
-                else                                      { b_hr.x  = 0;LCD_nokia_clear_range_FrameBuffer(0,3,252); }
+                else { b_hr.x  = 0;
+                if(mode !=both){
+                	 LCD_nokia_clear_range_FrameBuffer(0,3,252);
+                }else{
+                	LCD_nokia_clear_range_FrameBuffer(0, 0, 252);}
+                }
                 drawline(a_hr.x, a_hr.y, b_hr.x, b_hr.y, 50);
             }
         }
@@ -366,7 +354,9 @@ static void LCDprint_thread(void *pvParameters)
             if (xQueueReceive(PointQueueTEMP, &y_tp, pdMS_TO_TICKS(15)) == pdTRUE)
             {
                 a_tp = b_tp;
+
                 b_tp.y = y_tp;
+
                 if ((uint8_t)(b_tp.x + x_increment) < 84) { b_tp.x += x_increment; }
                 else                                      { b_tp.x  = 0; LCD_nokia_clear_range_FrameBuffer(0,3,252);}
                 drawline(a_tp.x, a_tp.y, b_tp.x, b_tp.y, 50);
@@ -389,6 +379,7 @@ static void LCDprint_thread(void *pvParameters)
                    LCD_PrintDeciC(0, (mode == both) ? 3 : 0, t_deciC);
                }
            }
+           last_mode = mode;
 
         /* Cede CPU; el frame se envía por el timer a ~30 FPS */
         taskYIELD();
@@ -405,11 +396,13 @@ static void GraphProcess_thread(void *pvParameters)
     {
         if (xQueueReceive(AdcConversionQueue, &m, portMAX_DELAY) == pdTRUE)
         {
-        	if (m.convSource == 0) {
-        	    y = (uint16_t)((m.data * 24U) / 4096U);
+        	if (m.convSource == heart) {
+        		y = (uint16_t)((m.data * 24U) / 4096U) + 24U; //de 24 a 27
+
         	    xQueueOverwrite(PointQueueHR, &y);
         	} else {
-        	    y = (uint16_t)((m.data * 24U) / 4096U) + 24U;
+        		 y = (uint16_t)((m.data * 24U) / 4096U); // de 0 a 24
+
         	    xQueueOverwrite(PointQueueTEMP, &y);
         	}
             taskYIELD();
