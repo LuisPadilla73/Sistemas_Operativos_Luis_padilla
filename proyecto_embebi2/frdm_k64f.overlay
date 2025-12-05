@@ -1,0 +1,22 @@
+/ {
+	zephyr,user {
+		dac = <&dac0>;
+		dac-channel-id = <0>;
+		dac-resolution = <12>;
+		io-channels = <&adc1 14>;
+	};
+};
+
+
+&adc1 {
+	#address-cells = <1>;
+	#size-cells = <0>;
+
+	channel@e {
+		reg = <14>;
+		zephyr,gain = "ADC_GAIN_1";
+		zephyr,reference = "ADC_REF_EXTERNAL0";
+		zephyr,acquisition-time = <ADC_ACQ_TIME_DEFAULT>;
+		zephyr,resolution = <12>;
+	};
+};
