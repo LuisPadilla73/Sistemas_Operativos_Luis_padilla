@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/flexspi/flexspi_dma3",
+		"source" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/flexspi/flexspi_dma3"
+	}
+}

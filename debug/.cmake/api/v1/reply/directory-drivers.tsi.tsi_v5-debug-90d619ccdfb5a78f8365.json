@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/tsi/tsi_v5",
+		"source" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/tsi/tsi_v5"
+	}
+}

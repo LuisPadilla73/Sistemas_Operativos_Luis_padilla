@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "zephyr/arch/arch/arm/core",
+		"source" : "C:/Zephyr/zephyr/zephyr/arch/arm/core"
+	}
+}

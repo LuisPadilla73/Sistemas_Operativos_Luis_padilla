@@ -1,0 +1,35 @@
+{
+  "version": 7,
+  "cmakeMinimumRequired": {
+    "major": 3
+  },
+  "configurePresets": [
+    {
+      "name": "debug-env",
+      "displayName": "debug-env",
+      "hidden": true,
+      "environment": {
+        "ZEPHYR_BASE": "C:/Zephyr/zephyr/zephyr",
+        "MCUX_VENV_PATH": "C:/Users/Usuario/.mcuxpressotools/.venv_3_10/Scripts",
+        "ZEPHYR_SDK_INSTALL_DIR": "C:/Users/Usuario/zephyr-sdk-0.17.2",
+        "PATH": "$env{MCUX_VENV_PATH}${pathListSep}$penv{PATH}",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      },
+      "cacheVariables": {}
+    },
+    {
+      "name": "release-env",
+      "displayName": "release-env",
+      "hidden": true,
+      "environment": {
+        "ZEPHYR_BASE": "C:/Zephyr/zephyr/zephyr",
+        "MCUX_VENV_PATH": "C:/Users/Usuario/.mcuxpressotools/.venv_3_10/Scripts",
+        "ZEPHYR_SDK_INSTALL_DIR": "C:/Users/Usuario/zephyr-sdk-0.17.2",
+        "PATH": "$env{MCUX_VENV_PATH}${pathListSep}$penv{PATH}",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON"
+      },
+      "cacheVariables": {}
+    }
+  ],
+  "buildPresets": []
+}

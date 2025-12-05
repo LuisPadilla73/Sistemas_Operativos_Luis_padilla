@@ -1,0 +1,57 @@
+cmake:
+  application:
+    configuration-dir: 'C:/ZephyrEMb2/dacMAYBE'
+    source-dir: 'C:/ZephyrEMb2/dacMAYBE'
+  board:
+    name: 'frdm_k64f'
+    path:
+     - 'C:/Zephyr/zephyr/zephyr/boards/nxp/frdm_k64f'
+    qualifiers: 'mk64f12'
+    revision: ''
+  devicetree:
+    bindings-dirs:
+     - 'C:/Zephyr/zephyr/zephyr/dts/bindings'
+    files:
+     - 'C:/Zephyr/zephyr/zephyr/boards/nxp/frdm_k64f/frdm_k64f.dts'
+     - 'C:/ZephyrEMb2/dacMAYBE/boards/frdm_k64f.overlay'
+    include-dirs:
+     - 'C:/Zephyr/zephyr/modules/hal/ambiq/dts'
+     - 'C:/Zephyr/zephyr/modules/hal/atmel/include'
+     - 'C:/Zephyr/zephyr/modules/hal/bouffalolab/include'
+     - 'C:/Zephyr/zephyr/modules/hal/bouffalolab/include/zephyr'
+     - 'C:/Zephyr/zephyr/modules/hal/gigadevice/include'
+     - 'C:/Zephyr/zephyr/modules/hal/microchip/include'
+     - 'C:/Zephyr/zephyr/modules/hal/microchip/dts'
+     - 'C:/Zephyr/zephyr/modules/hal/nuvoton/dts'
+     - 'C:/Zephyr/zephyr/modules/hal/nxp/dts'
+     - 'C:/Zephyr/zephyr/modules/hal/stm32/dts'
+     - 'C:/Zephyr/zephyr/modules/hal/ti/dts'
+     - 'C:/Zephyr/zephyr/zephyr/include'
+     - 'C:/Zephyr/zephyr/zephyr/include/zephyr'
+     - 'C:/Zephyr/zephyr/zephyr/dts/common'
+     - 'C:/Zephyr/zephyr/zephyr/dts/vendor'
+     - 'C:/Zephyr/zephyr/zephyr/dts/rx'
+     - 'C:/Zephyr/zephyr/zephyr/dts/x86'
+     - 'C:/Zephyr/zephyr/zephyr/dts/xtensa'
+     - 'C:/Zephyr/zephyr/zephyr/dts/sparc'
+     - 'C:/Zephyr/zephyr/zephyr/dts/riscv'
+     - 'C:/Zephyr/zephyr/zephyr/dts/posix'
+     - 'C:/Zephyr/zephyr/zephyr/dts/arm64'
+     - 'C:/Zephyr/zephyr/zephyr/dts/arm'
+     - 'C:/Zephyr/zephyr/zephyr/dts/arc'
+     - 'C:/Zephyr/zephyr/zephyr/dts'
+    user-files:
+     - 'C:/ZephyrEMb2/dacMAYBE/boards/frdm_k64f.overlay'
+  kconfig:
+    files:
+     - 'C:/Zephyr/zephyr/zephyr/boards/nxp/frdm_k64f/frdm_k64f_defconfig'
+     - 'C:/ZephyrEMb2/dacMAYBE/prj.conf'
+    user-files:
+     - 'C:/ZephyrEMb2/dacMAYBE/prj.conf'
+  toolchain:
+    name: 'zephyr'
+    path: 'C:/Users/Usuario/zephyr-sdk-0.17.2'
+  zephyr:
+    version: '4.3.0'
+    zephyr-base: 'C:/Zephyr/zephyr/zephyr'
+version: '0.1.0'

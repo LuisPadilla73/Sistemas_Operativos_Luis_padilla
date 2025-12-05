@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/dsc_pit",
+		"source" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/dsc_pit"
+	}
+}

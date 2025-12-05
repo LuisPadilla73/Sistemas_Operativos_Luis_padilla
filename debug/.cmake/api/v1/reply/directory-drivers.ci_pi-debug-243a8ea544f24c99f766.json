@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/ci_pi",
+		"source" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/ci_pi"
+	}
+}

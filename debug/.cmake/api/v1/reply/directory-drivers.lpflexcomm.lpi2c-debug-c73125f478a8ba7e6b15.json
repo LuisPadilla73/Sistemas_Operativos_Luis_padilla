@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "drivers/lpflexcomm/lpi2c",
+		"source" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/lpflexcomm/lpi2c"
+	}
+}

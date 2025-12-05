@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "modules/mipi-sys-t",
+		"source" : "C:/Zephyr/zephyr/modules/debug/mipi-sys-t"
+	}
+}

@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "zephyr/soc/soc/mk64f12/k6x",
+		"source" : "C:/Zephyr/zephyr/zephyr/soc/nxp/kinetis/k6x"
+	}
+}

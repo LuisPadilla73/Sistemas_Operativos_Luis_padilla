@@ -1,0 +1,13 @@
+{
+  "version": "25.3",
+  "toolchainPath": "C:/Users/Usuario/zephyr-sdk-0.17.2/arm-zephyr-eabi",
+  "linkedProjects": [],
+  "trustZoneType": "none",
+  "multicoreType": "none",
+  "projectType": "zephyr-freestanding",
+  "projectName": "dacMAYBE",
+  "sdk": {
+    "version": "4.3.0",
+    "path": "c:\\Zephyr\\zephyr"
+  }
+}

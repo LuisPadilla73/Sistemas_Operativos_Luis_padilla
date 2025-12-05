@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "zephyr/boards/nxp/frdm_k64f",
+		"source" : "C:/Zephyr/zephyr/zephyr/boards/nxp/frdm_k64f"
+	}
+}

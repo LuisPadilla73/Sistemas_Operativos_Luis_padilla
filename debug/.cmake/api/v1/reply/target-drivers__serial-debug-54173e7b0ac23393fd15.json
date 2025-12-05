@@ -1,0 +1,513 @@
+{
+	"archive" : {},
+	"artifacts" : 
+	[
+		{
+			"path" : "zephyr/drivers/serial/libdrivers__serial.a"
+		}
+	],
+	"backtrace" : 3,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_library",
+			"zephyr_library_named",
+			"zephyr_library",
+			"add_dependencies",
+			"add_compile_options",
+			"target_link_libraries",
+			"add_definitions",
+			"target_sources",
+			"zephyr_library_sources",
+			"zephyr_library_sources_ifdef"
+		],
+		"files" : 
+		[
+			"C:/Zephyr/zephyr/zephyr/cmake/modules/extensions.cmake",
+			"C:/Zephyr/zephyr/zephyr/drivers/serial/CMakeLists.txt",
+			"C:/Zephyr/zephyr/zephyr/CMakeLists.txt",
+			"C:/Zephyr/zephyr/zephyr/drivers/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 5,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 434,
+				"parent" : 1
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 465,
+				"parent" : 2
+			},
+			{
+				"file" : 2
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 1060,
+				"parent" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 2,
+				"line" : 1082,
+				"parent" : 4
+			},
+			{
+				"file" : 3
+			},
+			{
+				"command" : 4,
+				"file" : 3,
+				"line" : 4,
+				"parent" : 7
+			},
+			{
+				"command" : 5,
+				"file" : 0,
+				"line" : 469,
+				"parent" : 2
+			},
+			{
+				"command" : 6,
+				"file" : 3,
+				"line" : 6,
+				"parent" : 7
+			},
+			{
+				"command" : 9,
+				"file" : 1,
+				"line" : 52,
+				"parent" : 0
+			},
+			{
+				"command" : 8,
+				"file" : 0,
+				"line" : 2068,
+				"parent" : 11
+			},
+			{
+				"command" : 7,
+				"file" : 0,
+				"line" : 536,
+				"parent" : 12
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 8,
+					"fragment" : "-Wshadow"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fno-strict-aliasing"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-Os"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-imacros"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "C:/ZephyrEMb2/dacMAYBE/debug/zephyr/include/generated/zephyr/autoconf.h"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fno-printf-return-value"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fno-common"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-gdwarf-4"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fdiagnostics-color=always"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-mcpu=cortex-m4"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-mthumb"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-mabi=aapcs"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-mfp16-format=ieee"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-mtp=soft"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "--sysroot=C:/Users/Usuario/zephyr-sdk-0.17.2/arm-zephyr-eabi/arm-zephyr-eabi"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-imacros"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "C:/Zephyr/zephyr/zephyr/include/zephyr/toolchain/zephyr_stdint.h"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-Wall"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-Wformat"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-Wformat-security"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-Wno-format-zero-length"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-Wdouble-promotion"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-Wno-pointer-sign"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-Wpointer-arith"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-Wexpansion-to-defined"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-Wno-unused-but-set-variable"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-Werror=implicit-int"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fno-pic"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fno-pie"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fno-asynchronous-unwind-tables"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-ftls-model=local-exec"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fno-reorder-functions"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "--param=min-pagesize=0"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fno-defer-pop"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fmacro-prefix-map=C:/ZephyrEMb2/dacMAYBE=CMAKE_SOURCE_DIR"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fmacro-prefix-map=C:/Zephyr/zephyr/zephyr=ZEPHYR_BASE"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fmacro-prefix-map=C:/Zephyr/zephyr=WEST_TOPDIR"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-ffunction-sections"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-fdata-sections"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-specs=picolibc.specs"
+				},
+				{
+					"backtrace" : 9,
+					"fragment" : "-std=c99"
+				}
+			],
+			"defines" : 
+			[
+				{
+					"backtrace" : 9,
+					"define" : "CPU_MK64FN1M0VLL12"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "KERNEL"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "K_HEAP_MEM_POOL_SIZE=0"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "NDEBUG"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "PICOLIBC_LONG_LONG_PRINTF_SCANF"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "ZVFS_OPEN_SIZE=0"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "_POSIX_THREAD_SAFE_FUNCTIONS=200809L"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "__LINUX_ERRNO_EXTENSIONS__"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "__PROGRAM_START"
+				},
+				{
+					"backtrace" : 10,
+					"define" : "__ZEPHYR_SUPERVISOR__"
+				},
+				{
+					"backtrace" : 9,
+					"define" : "__ZEPHYR__=1"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 9,
+					"path" : "C:/ZephyrEMb2/dacMAYBE/debug/zephyr/include/generated/zephyr"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/zephyr/include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/ZephyrEMb2/dacMAYBE/debug/zephyr/include/generated"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/zephyr/soc/nxp/kinetis"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/zephyr/lib/libc/picolibc/include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/zephyr/lib/posix/c_lib_ext/getopt"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/zephyr/lib/midi2/."
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/zephyr/soc/nxp/kinetis/k6x/."
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/zephyr/soc/nxp/kinetis/common"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/zephyr/soc/nxp/kinetis/../common"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/cmsis_6/CMSIS/Core/Include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/zephyr/modules/cmsis_6/."
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/microchip/include"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk/devices/MK64F12"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk/devices/MK64F12/drivers"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/common"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk/devices/MK64F12/."
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/adc16"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/dac"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/port"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/sysmpu"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/nxp/mcux/mcux-sdk-ng/drivers/uart"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/ti/mspm0/source/ti/devices/msp/."
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/ti/mspm0/source/ti/devices/msp/m0p"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/ti/mspm0/source/ti/devices/msp/peripherals"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/ti/mspm0/source/ti/devices/msp/peripherals/m0p"
+				},
+				{
+					"backtrace" : 9,
+					"path" : "C:/Zephyr/zephyr/modules/hal/ti/mspm0/source/ti/devices/msp/peripherals/m0p/sysctl"
+				},
+				{
+					"backtrace" : 9,
+					"isSystem" : true,
+					"path" : "C:/Zephyr/zephyr/zephyr/lib/libc/common/include"
+				}
+			],
+			"language" : "C",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 5,
+			"id" : "offsets_h::@d36e55b69c1b90fb26b2"
+		},
+		{
+			"backtrace" : 5,
+			"id" : "version_h::@d36e55b69c1b90fb26b2"
+		},
+		{
+			"backtrace" : 6,
+			"id" : "driver_validation_h_target::@d36e55b69c1b90fb26b2"
+		},
+		{
+			"backtrace" : 6,
+			"id" : "kobj_types_h_target::@d36e55b69c1b90fb26b2"
+		},
+		{
+			"backtrace" : 6,
+			"id" : "device_api_ld_target::@d36e55b69c1b90fb26b2"
+		},
+		{
+			"backtrace" : 6,
+			"id" : "syscall_list_h_target::@d36e55b69c1b90fb26b2"
+		}
+	],
+	"id" : "drivers__serial::@18e421c5ba74f72aaba5",
+	"name" : "drivers__serial",
+	"nameOnDisk" : "libdrivers__serial.a",
+	"paths" : 
+	{
+		"build" : "zephyr/drivers/serial",
+		"source" : "C:/Zephyr/zephyr/zephyr/drivers/serial"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 13,
+			"compileGroupIndex" : 0,
+			"path" : "C:/Zephyr/zephyr/zephyr/drivers/serial/uart_mcux.c",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "STATIC_LIBRARY"
+}

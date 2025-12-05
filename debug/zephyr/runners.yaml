@@ -1,0 +1,42 @@
+# Available runners configured by board.cmake.
+runners:
+- linkserver
+- pyocd
+- jlink
+- openocd
+- canopen
+
+# Default flash runner if --runner is not given.
+flash-runner: linkserver
+
+# Default debug runner if --runner is not given.
+debug-runner: linkserver
+
+# Common runner configuration values.
+config:
+  board_dir: C:/Zephyr/zephyr/zephyr/boards/nxp/frdm_k64f
+  # Build outputs:
+  elf_file: zephyr.elf
+  bin_file: zephyr.bin
+  # Host tools:
+  gdb: C:/Users/Usuario/zephyr-sdk-0.17.2/arm-zephyr-eabi/bin/arm-zephyr-eabi-gdb-py.exe
+
+# Runner specific arguments
+args:
+  linkserver:
+    - --dt-flash=y
+    - --device=MK64FN1M0xxx12:FRDM-K64F
+  pyocd:
+    - --dt-flash=y
+    - --target=k64f
+  jlink:
+    - --dt-flash=y
+    - --device=MK64FN1M0xxx12
+  openocd:
+    - --cmd-load
+    - flash write_image erase
+    - --cmd-verify
+    - verify_image
+  canopen:
+    []
+
